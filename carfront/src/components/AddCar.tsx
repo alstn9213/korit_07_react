@@ -1,5 +1,5 @@
 //  AddCar.tsx
-import { Dialog, DialogActions, DialogTitle } from "@mui/material";
+import { Dialog, DialogActions, DialogTitle, Button } from "@mui/material";
 import { Car } from "../types";
 import { ChangeEvent, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -51,7 +51,7 @@ function AddCar() {
 
   return(
     <>
-      <button onClick={handleClickOpen}>New Car</button>
+      <Button onClick={handleClickOpen} variant="outlined">New Car</Button>
       <Dialog open={open}>
         <DialogTitle>New Car</DialogTitle>
         <CarDialogContent car={car} handleChange={handleChange}/>
