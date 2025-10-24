@@ -1,5 +1,5 @@
-interface Todo{
+interface Todo {
   id: number;
-  titile: string;
+  title: string;
   done: boolean;
 }
