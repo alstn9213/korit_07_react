@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import TodoEditor from './components/TodoEditor';
+import TodoHeader from './components/TodoHeader';
+import TodoList from './components/TodoList';
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [todos, setTodos] = useState<Todo[]>([]);
+  
+  const addTodo = (title: string) => {
+    setTodos((todos) => [
+      ...todos,
+      {
+        id: new Date().getTime(),
+        title,
+        done: false,
+      },
+    ]);
+  };
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className='todo'>
+      <TodoHeader/>
+      <TodoEditor/>
+      <TodoList/>
+    </div>
+  );
 }
 
 export default App
