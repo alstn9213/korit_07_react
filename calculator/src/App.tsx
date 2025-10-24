@@ -38,6 +38,7 @@ function App() {
     const handleOperatorClick = (
       event: React.MouseEvent<HTMLInputElement, MouseEvent>
     ) => {
+      if(state.currentNumber === '0') return;
       const operator = event.currentTarget.value;
       const current = parseFloat(state.currentNumber || '0');
       if(state.previousNumber !== '' && state.operation) {
@@ -47,23 +48,65 @@ function App() {
           case '+':
             result = prev + current;
             break;
+          case '-':
+            result = prev - current;
+            break;
+          case '*':
+            result = prev * current;
+            break;
+          case '/':
+            result = prev / current;
+            break; 
+        } 
+        if(operator === '=') {
+          setState({
+            currentNumber: result.toString(),
+            previousNumber: '',
+            operation: null,
+            isNewNumber: true,
+          });
+        } else {
+          setState({
+            currentNumber: '' ,
+            previousNumber: result.toString(),
+            operation: operator,
+            isNewNumber: true,
+          });
         }
+      } else {
+        setState({
+          currentNumber: '',
+          previousNumber: current.toString(),
+          operation: operator,
+          isNewNumber: true,
+        });
       }
-    }
+    }; 
 
     const handleClear = () => {
-      console.log('clear');
+      setState({
+        currentNumber: '0',
+        previousNumber: '',
+        operation: null,
+        isNewNumber: true,
+      });
     };
 
     const handleDot = () => {
-      console.log('dot');
+      if(!state.currentNumber.includes('.')) {
+        setState({
+          ...state,
+          currentNumber: state.currentNumber + '.',
+          isNewNumber: false,
+        });
+      }
     };
     return (
       <article className='calculator'>
         <form name='forms'>
           <input type="text" name='output' value={state.currentNumber} readOnly/>
           <input type="button" className='clear' value='C' onClick={handleClear}/>
-          <input type="button" className='operator' value='/'/>
+          <input type="button" className='operator' value='/' onClick={handleOperatorClick}/>
           <input type="button" value='1' onClick={handleNumberClick}/>
           <input type="button" value='2' onClick={handleNumberClick}/>
           <input type="button" value='3' onClick={handleNumberClick}/>
