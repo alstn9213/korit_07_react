@@ -5,8 +5,8 @@ import {GridApi, ColDef, GridReadyEvent} from "ag-grid-community"
 import { Button, Snackbar, Alert, Box } from "@mui/material"
 import { getItems, deleteItem } from "../api/shoppingapi"
 import { ShoppingItem } from "../../types"
-import AddItem from "../AddItem"
-import EditItem from "./EditItem"
+import AddItem from "../components/AddItem"
+import EditItem from "../components/EditItem"
 
 import 'ag-grid-community/styles/ag-theme-material.css';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -99,7 +99,7 @@ function ShoppingItemList() {
         <AgGridReact
           rowData={items}
           columnDefs={columnDefs}
-          pagenation={true}
+          pagination={true}
           paginationPageSize={10}
           onGridReady={onGridReady}
           animateRows={true}
